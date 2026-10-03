@@ -1,0 +1,31 @@
+flowchart TB
+    CL["Cliente (PWA Web)"]
+    COM["Comerciante (PWA Simplificada)"]
+    REP["Repartidor (App Móvil / PWA)"]
+
+    subgraph APP ["San Camilo en Línea - Monolito Modular (Un solo despliegue)"]
+        API["Capa de Presentación: API REST + PWA"]
+        M1["Módulo Catálogo y Puestos"]
+        M2["Módulo Pedidos Multipuesto"]
+        M3["Módulo Pagos"]
+        M4["Módulo Notificaciones"]
+        INF["Capa de Infraestructura y Adaptadores"]
+    end
+
+    DB[("PostgreSQL (Esquema por módulo)")]
+    YP["Pasarela Yape / Plin"]
+    WA["WhatsApp Business API"]
+
+    CL & COM & REP --> API
+    API --> M1 & M2 & M3 & M4
+    M1 & M2 & M3 & M4 --> INF
+    INF --> DB
+    INF --> YP
+    INF --> WA
+
+    classDef mod fill:#E8F5E9,stroke:#2E7D32,color:#000
+    classDef ext fill:#F2F2F2,stroke:#7F7F7F,color:#000
+    classDef usr fill:#FDEDEC,stroke:#C8310E,color:#000
+    class M1,M2,M3,M4 mod
+    class YP,WA ext
+    class CL,COM,REP usr
