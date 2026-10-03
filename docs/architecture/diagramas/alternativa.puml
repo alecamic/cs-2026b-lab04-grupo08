@@ -1,0 +1,36 @@
+@startuml
+skinparam dpi 220
+skinparam componentStyle rectangle
+title Alternativa C (Descartada): Microservicios para San Camilo en Línea
+
+actor "Cliente / Comerciante" as U
+node "API Gateway" as GW
+package "Microservicios" {
+    [Servicio Catálogo] as C
+    [Servicio Pedidos] as P
+    [Servicio Pagos] as PA
+    [Servicio Notificaciones] as N
+}
+
+queue "RabbitMQ" as MQ
+database "BD Catálogo" as DB1
+database "BD Pedidos" as DB2
+database "BD Pagos" as DB3
+
+U --> GW
+GW --> C
+GW --> P
+C --> DB1
+P --> DB2
+P ..> MQ : PedidoCreado
+MQ ..> PA
+MQ ..> N
+PA --> DB3
+
+note bottom of MQ
+Descartado (Puntaje en Matriz: 3.05):
+Esta alternativa añade demasiada complejidad operativa, 
+requiere múltiples bases de datos y servidores que exceden 
+nuestro presupuesto (R-03) y nuestro tiempo límite de 1 mes (R-01).
+end note
+@enduml
