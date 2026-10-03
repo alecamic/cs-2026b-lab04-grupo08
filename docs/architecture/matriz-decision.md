@@ -5,7 +5,7 @@
 **B. Monolito modular (PWA + Django):** Un único proyecto dividido internamente en módulos claros por dominio (Puestos, Pedidos, Pagos, Notificaciones). Usamos una PWA simple para el frontend.
 **C. Microservicios + Broker de eventos:** Separar el sistema en 5 servicios independientes con sus propias bases de datos y comunicación por RabbitMQ.
 
-## Criterios y pesos (Suman 100%)
+## Criterios y pesos
 | Criterio | Peso | Justificación (driver relacionado) |
 |---|---|---|
 | Tiempo de entrega | 25% | R-01: El MVP debe salir obligatoriamente en 1 mes |
