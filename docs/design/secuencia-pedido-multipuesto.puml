@@ -1,0 +1,47 @@
+@startuml secuencia-pedido-multipuesto
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam sequenceMessageAlign center
+autonumber
+
+actor Comprador
+participant "PWA San Camilo" as UI
+participant "PedidoController" as C
+participant "ServicioPedidosMultipuesto" as S
+participant "PedidoPuesto" as PP
+participant "PasarelaPago\n(YapeAdapter)" as G
+participant "NotificadorWhatsApp" as N
+
+Comprador -> UI : Selecciona productos de Varios Puestos y Paga
+UI -> C : POST /pedidos/multipuesto/pagar
+C -> S : procesarPedidoMultipuesto(id, YAPE)
+S -> PP : calcularSubtotal()
+PP --> S : subtotalPuesto
+
+loop por cada puesto comerciante
+    S -> PP : reservarStock()
+end
+
+S -> G : cobrar(montoTotal, celular)
+
+alt Pago Aprobado
+    G --> S : pago (aprobado, codOperacion)
+    S -> PP : registrarPago(pago)
+    S -> PP : cambiarEstado(RECIBIDO)
+    S ->> N : notificarComerciante(pedidoPuesto)
+    note right of N: Envío asíncrono WhatsApp\na cada comerciante del puesto
+    S --> C : Pedido CONFIRMADO y PAGADO
+    C --> UI : 200 OK (Pedido Exitoso)
+    UI --> Comprador : Muestra confirmación y desglose por puesto
+else Pago Rechazado o Tiempo Agotado
+    G --> S : pago (rechazado)
+    loop por cada puesto comerciante
+        S -> PP : cancelar("Pago rechazado")
+        PP -> PP : producto.liberar(cantidad)
+    end
+    S --> C : Pedido CANCELADO
+    C --> UI : 402 Pago Rechazado
+    UI --> Comprador : Muestra error y permite reintentar
+end
+
+@enduml
