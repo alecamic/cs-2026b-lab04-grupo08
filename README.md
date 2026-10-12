@@ -1,16 +1,18 @@
-# cs-2026b-lab04-grupo08
-
-# San Camilo en Línea - Laboratorio 04: Fundamentos de Arquitectura de Software
+# San Camilo en Línea - Laboratorio 04 y 05
 **Asignatura:** Construcción de Software (EPIS-UNSA - 2026B)
 
 ## Integrantes
-- Grupo 08 - Alejandra Choque: Redactor de ADRs, Diagramador y Verificador de IA.
+- **Grupo 08**: Alejandra Choque (Redactora de ADRs, Diagramadora y Verificadora de IA)
+
+---
 
 ## Caso Asignado
-**Caso 07: San Camilo en Línea**
+**Caso 07: San Camilo en Línea**  
 Plataforma web/móvil para realizar pedidos a múltiples puestos del Mercado San Camilo de Arequipa, ofreciendo opciones de recojo o delivery. El atributo de calidad más crítico es la **Capacidad de Interacción (Usabilidad)**, asegurando que los comerciantes con poca experiencia digital puedan publicar productos en 3 toques o menos desde sus celulares de gama baja.
 
-## Arquitectura Elegida
+---
+
+## Arquitectura Elegida (Lab 04)
 Elegimos un **Monolito Modular con Frontend PWA**. A continuación se muestra la vista de componentes principales:
 
 ```mermaid
@@ -38,22 +40,3 @@ flowchart TB
     INF --> DB
     INF --> YP
     INF --> WA
-
-## Diseño UML (Lab 05) - San Camilo en Línea
-
-En esta sección se presenta el diseño detallado para el caso **San Camilo en Línea**, en base a la arquitectura modular del Laboratorio 04.
-
-### Diagrama de Estados (Mermaid)
-```mermaid
-stateDiagram-v2
-    [*] --> RECIBIDO : crearPedidoPuesto()
-    RECIBIDO --> PREPARANDO : aceptarPreparacion() [stock verificado]
-    RECIBIDO --> RECHAZADO : rechazarPedido() [sin insumos en puesto]
-    RECIBIDO --> CANCELADO : cancelar() [pago rechazado]
-    PREPARANDO --> LISTO : marcarListo() [comerciante empaca]
-    PREPARANDO --> CANCELADO : cancelar() [problema en puesto]
-    LISTO --> RECOGIDO : entregarACentral() [agente acopia en mercado]
-    RECOGIDO --> ENTREGADO : entregarACliente() [despacho final]
-    ENTREGADO --> [*]
-    RECHAZADO --> [*]
-    CANCELADO --> [*]
