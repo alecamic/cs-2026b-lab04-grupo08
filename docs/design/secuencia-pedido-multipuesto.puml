@@ -1,8 +1,10 @@
-@startuml secuencia-pedido-multipuesto
+@startuml
 skinparam shadowing false
 skinparam defaultFontName Arial
 skinparam sequenceMessageAlign center
 autonumber
+
+title Secuencia - Pedido Multipuesto con Pago Único
 
 actor Comprador
 participant "PWA San Camilo" as UI
