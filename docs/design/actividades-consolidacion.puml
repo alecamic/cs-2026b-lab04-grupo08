@@ -1,0 +1,36 @@
+@startuml actividades-consolidacion
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam ActivityBackgroundColor #EEF2F8
+skinparam ActivityBorderColor #1A3A5C
+
+|Comerciantes de Puestos|
+start
+:Reciben notificación de pedido asignado;
+fork
+  :Puesto A: Prepara frutas/verduras;
+  :Empaca y etiqueta subpedido A;
+fork again
+  :Puesto B: Prepara carnes/abarrotes;
+  :Empaca y etiqueta subpedido B;
+end fork
+
+|Agente Acopio Central|
+:Recoge subpedidos A y B en puestos;
+:Valida lista de ítems vs pedido general;
+
+if (¿Están todos los subpedidos completos?) then (sí)
+  :Consolida en un solo paquete final San Camilo;
+  :Despacha con el repartidor;
+else (no)
+  :Contacta al comerciante faltante;
+  :Completa ítem pendiente;
+  :Consolida paquete final;
+endif
+
+|Comprador|
+:Recibe pedido consolidado único;
+:Confirma recepción mediante App/QR;
+stop
+
+@enduml
