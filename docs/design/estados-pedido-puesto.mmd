@@ -1,0 +1,20 @@
+stateDiagram-v2
+    [*] --> RECIBIDO : crearPedidoPuesto()
+    
+    RECIBIDO --> PREPARANDO : aceptarPreparacion() [stock verificado]
+    RECIBIDO --> RECHAZADO : rechazarPedido() [sin insumos en puesto]
+    RECIBIDO --> CANCELADO : cancelar() [pago rechazado]
+    
+    PREPARANDO --> LISTO : marcarListo() [comerciante empaca]
+    PREPARANDO --> CANCELADO : cancelar() [problema en puesto]
+    
+    LISTO --> RECOGIDO : entregarACentral() [agente acopia en mercado]
+    RECOGIDO --> ENTREGADO : entregarACliente() [despacho final]
+    
+    ENTREGADO --> [*]
+    RECHAZADO --> [*]
+    CANCELADO --> [*]
+
+    note right of RECIBIDO
+        Al entrar: notificar al comerciante del puesto por WhatsApp
+    end note
