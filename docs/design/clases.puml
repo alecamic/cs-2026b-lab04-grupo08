@@ -1,0 +1,120 @@
+@startuml clases-sancamilo
+skinparam classAttributeIconSize 0
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam class BackgroundColor #EEF2F8
+skinparam classBorderColor #1A3A5C
+
+title San Camilo en Línea - Módulos Pedidos y Pagos (Diseño Clases)
+
+class Comprador {
+  - id: UUID
+  - nombre: String
+  - telefono: String
+}
+
+class PuestoComerciante {
+  - id: UUID
+  - numeroPuesto: String
+  - nombreComerciante: String
+  - rubro: String
+}
+
+class Producto {
+  - id: UUID
+  - nombre: String
+  - precioUnitario: Decimal
+  - stockDisponible: int
+  + reservar(cantidad: int): void
+  + liberar(cantidad: int): void
+}
+
+class Pedido {
+  - id: UUID
+  - fecha: DateTime
+  - totalGeneral: Decimal
+  + calcularTotalGeneral(): Decimal
+  + confirmarYPagar(): void
+}
+
+class PedidoPuesto {
+  - id: UUID
+  - subtotal: Decimal
+  - estado: EstadoPedidoPuesto
+  + agregarLinea(producto: Producto, cantidad: int): void
+  + calcularSubtotal(): Decimal
+  + registrarPago(pago: Pago): void
+  + aceptarPreparacion(): void
+  + marcarListo(): void
+  + cancelar(motivo: String): void
+}
+
+class LineaPedido {
+  - cantidad: int
+  - precioUnitario: Decimal
+  + subtotal(): Decimal
+}
+
+enum EstadoPedidoPuesto {
+  RECIBIDO
+  PREPARANDO
+  LISTO
+  RECOGIDO
+  ENTREGADO
+  RECHAZADO
+  CANCELADO
+}
+
+class Pago {
+  - id: UUID
+  - monto: Decimal
+  - medio: MedioPago
+  - codigoOperacion: String
+  - aprobado: boolean
+}
+
+enum MedioPago {
+  YAPE
+  PLIN
+}
+
+interface PasarelaPago <<puerto>> {
+  + cobrar(monto: Decimal, celular: String): Pago
+}
+
+class YapeAdapter <<adaptador>>
+class PlinAdapter <<adaptador>>
+
+class ServicioPedidos Multipuesto <<servicio>> {
+  + procesarPedidoMultipuesto(pedidoId: UUID, medio: MedioPago): Pedido
+}
+
+interface RepositorioPedidos <<puerto>> {
+  + buscar(id: UUID): Pedido
+  + guardar(p: Pedido): void
+}
+
+interface NotificadorWhatsApp <<puerto>> {
+  + notificarComerciante(pedidoPuesto: PedidoPuesto): void
+}
+
+Comprador "1" -- "0..*" Pedido : realiza >
+Pedido "1" *-- "1..*" PedidoPuesto : contiene >
+PuestoComerciante "1" -- "0..*" PedidoPuesto : atiende >
+PedidoPuesto "1" *-- "1..*" LineaPedido
+LineaPedido "0..*" --> "1" Producto
+PuestoComerciante "1" -- "0..*" Producto : ofrece >
+
+Pedido "1" -- "0..1" Pago
+PedidoPuesto --> EstadoPedidoPuesto
+Pago --> MedioPago
+
+PasarelaPago <|.. YapeAdapter
+PasarelaPago <|.. PlinAdapter
+
+ServicioPedidosMultipuesto ..> Pedido
+ServicioPedidosMultipuesto ..> RepositorioPedidos
+ServicioPedidosMultipuesto ..> PasarelaPago
+ServicioPedidosMultipuesto ..> NotificadorWhatsApp
+
+@enduml
