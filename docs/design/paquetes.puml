@@ -1,0 +1,32 @@
+@startuml paquetes-sancamilo
+skinparam shadowing false
+skinparam defaultFontName Arial
+skinparam packageStyle rectangle
+
+title San Camilo en Línea - Diagrama de Paquetes (Vista de Desarrollo)
+
+package "sancamilo" {
+  package "puestos" as PUE
+  package "pedidos" as PED
+  package "pagos" as PAG
+  package "notificaciones" as NOT
+  package "despacho" as DES
+  package "compartido" as COM
+}
+
+PED ..> PUE : usa Producto y Puesto
+PED ..> PAG : usa PasarelaPago (puerto)
+PED ..> NOT : usa NotificadorWhatsApp (puerto)
+DES ..> PED : consulta pedidos listos
+PUE ..> COM
+PED ..> COM
+PAG ..> COM
+NOT ..> COM
+DES ..> COM
+
+note bottom of PAG
+  Regla (ADR-001 / C4): Sin dependencias cíclicas.
+  El paquete 'pagos' NO depende del paquete 'pedidos'.
+end note
+
+@enduml
