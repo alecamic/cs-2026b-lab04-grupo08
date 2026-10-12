@@ -1,4 +1,4 @@
-@startuml clases-sancamilo
+@startuml
 skinparam classAttributeIconSize 0
 skinparam shadowing false
 skinparam defaultFontName Arial
@@ -85,7 +85,7 @@ interface PasarelaPago <<puerto>> {
 class YapeAdapter <<adaptador>>
 class PlinAdapter <<adaptador>>
 
-class ServicioPedidos Multipuesto <<servicio>> {
+class ServicioPedidosMultipuesto <<servicio>> {
   + procesarPedidoMultipuesto(pedidoId: UUID, medio: MedioPago): Pedido
 }
 
