@@ -38,3 +38,22 @@ flowchart TB
     INF --> DB
     INF --> YP
     INF --> WA
+
+## Diseño UML (Lab 05) - San Camilo en Línea
+
+En esta sección se presenta el diseño detallado para el caso **San Camilo en Línea**, en base a la arquitectura modular del Laboratorio 04.
+
+### Diagrama de Estados (Mermaid)
+```mermaid
+stateDiagram-v2
+    [*] --> RECIBIDO : crearPedidoPuesto()
+    RECIBIDO --> PREPARANDO : aceptarPreparacion() [stock verificado]
+    RECIBIDO --> RECHAZADO : rechazarPedido() [sin insumos en puesto]
+    RECIBIDO --> CANCELADO : cancelar() [pago rechazado]
+    PREPARANDO --> LISTO : marcarListo() [comerciante empaca]
+    PREPARANDO --> CANCELADO : cancelar() [problema en puesto]
+    LISTO --> RECOGIDO : entregarACentral() [agente acopia en mercado]
+    RECOGIDO --> ENTREGADO : entregarACliente() [despacho final]
+    ENTREGADO --> [*]
+    RECHAZADO --> [*]
+    CANCELADO --> [*]
