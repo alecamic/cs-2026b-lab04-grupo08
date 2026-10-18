@@ -1,5 +1,5 @@
-# San Camilo en Línea - Laboratorio 04 y 05
-**Asignatura:** Construcción de Software (EPIS-UNSA - 2026B)
+# San Camilo en Línea - Laboratorio 04, 05 y 06
+**Asignatura:** Construcción de Software (EPIS-UNSA - 2026B)[cite: 43]
 
 ## Integrantes
 - **Grupo 08**: Alejandra Choque (Redactora de ADRs, Diagramadora y Verificadora de IA)
@@ -8,12 +8,12 @@
 
 ## Caso Asignado
 **Caso 07: San Camilo en Línea**  
-Plataforma web/móvil para realizar pedidos a múltiples puestos del Mercado San Camilo de Arequipa, ofreciendo opciones de recojo o delivery. El atributo de calidad más crítico es la **Capacidad de Interacción (Usabilidad)**, asegurando que los comerciantes con poca experiencia digital puedan publicar productos en 3 toques o menos desde sus celulares de gama baja.
+Plataforma web/móvil para realizar pedidos a múltiples puestos del Mercado San Camilo de Arequipa, ofreciendo opciones de recojo o delivery[cite: 58]. El atributo de calidad más crítico es la **Capacidad de Interacción (Usabilidad)**, asegurando que los comerciantes con poca experiencia digital puedan publicar productos en 3 toques o menos desde sus celulares de gama baja.
 
 ---
 
 ## Arquitectura Elegida (Lab 04)
-Elegimos un **Monolito Modular con Frontend PWA**. A continuación se muestra la vista de componentes principales:
+Elegimos un **Monolito Modular con Frontend PWA**[cite: 50]. A continuación se muestra la vista de componentes principales:
 
 ```mermaid
 flowchart TB
