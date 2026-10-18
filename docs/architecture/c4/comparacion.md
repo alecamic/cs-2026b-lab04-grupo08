@@ -1,0 +1,7 @@
+# Comparación de Herramientas: Diagramación a Mano vs. Modelado DSL
+
+## 1. Comparación entre Diagrama a Mano y Modelo Exportado (E6)
+El gráfico escrito a mano (`contexto-manual.puml`) requirió redactar manualmente cada etiqueta, entidad y relación mediante macros de PlantUML. Si bien es rápido para un solo dibujo, presenta un riesgo grave: si un contenedor cambia de nombre o tecnología, hay que actualizarlo manualmente en todos los archivos `.puml` del proyecto. En cambio, utilizando Structurizr DSL (`workspace.dsl`), creamos un **único modelo centralizado**. Al modificar el nombre o protocolo de una entidad en el archivo principal, todas las 5 vistas (Contexto, Contenedores, Componentes, Dinámica y Despliegue) se actualizan automáticamente al exportar.
+
+## 2. Diferencia entre Vista Dinámica C4 y Diagrama de Secuencia UML (E4)
+El diagrama de secuencia UML del Laboratorio 05 detalla la implementación exacta del código: muestra objetos en memoria, llamadas a métodos explícitos (`reservarStock()`), parámetros, retornos y excepciones. Por su parte, la vista dinámica C4 muestra una abstracción de alto nivel enfocada en el intercambio de mensajes entre contenedores o componentes mediante pasos numerados. La vista dinámica es ideal para comunicar el flujo a arquitectos y líderes técnicos, mientras que el diagrama de secuencia UML está destinado directamente a los desarrolladores que van a escribir las funciones en código.
