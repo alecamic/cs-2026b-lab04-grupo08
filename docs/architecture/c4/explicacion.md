@@ -1,0 +1,3 @@
+# Explicación Ejecutiva del Sistema San Camilo en Línea
+
+San Camilo en Línea es una plataforma digital que permite a los ciudadanos comprar productos de distintos puestos del Mercado San Camilo realizando un solo pago unificado. Los compradores usan una aplicación web en su celular para armar su carrito multipuesto; los comerciantes reciben los avisos de venta en sus teléfonos para alistar la mercadería; y los repartidores coordinan el recojo y envío. Para procesar el dinero de forma rápida, el sistema se conecta automáticamente con Yape y Plin, y para confirmar las compras envía alertas por WhatsApp. Todo el sistema está diseñado para operar de forma continua y segura desde un servidor en la nube.
