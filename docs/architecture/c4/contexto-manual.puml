@@ -1,0 +1,25 @@
+@startuml contexto-manual
+!include <C4/C4_Context>
+skinparam dpi 180
+LAYOUT_LEFT_RIGHT()
+
+title Diagrama de Contexto - San Camilo en Línea (C4-PlantUML Escrito a Mano)
+
+Person(comprador, "Comprador", "Cliente del mercado que realiza pedidos unificados")
+Person(comerciante, "Comerciante", "Vendedor de un puesto del mercado")
+Person(repartidor, "Repartidor", "Personal de acopio y entrega a domicilio")
+
+System(sancamilo, "San Camilo en Línea", "Permite compras multipuesto en el mercado con pago único")
+
+System_Ext(pagos, "Pasarela Yape / Plin", "Servicio externo de pagos móviles")
+System_Ext(wa, "WhatsApp Business API", "Servicio externo de notificaciones por mensaje")
+
+Rel(comprador, sancamilo, "Hace pedidos y paga")
+Rel(comerciante, sancamilo, "Recibe pedidos y confirma stock")
+Rel(repartidor, sancamilo, "Consulta lista de entrega")
+
+Rel(sancamilo, pagos, "Solicita cobros unificados", "HTTPS/JSON")
+Rel(sancamilo, wa, "Envía avisos de pedidos", "HTTPS/JSON")
+
+SHOW_LEGEND()
+@endl
