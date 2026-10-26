@@ -1,5 +1,5 @@
-# San Camilo en Línea - Laboratorio 04, 05 y 06
-**Asignatura:** Construcción de Software (EPIS-UNSA - 2026B)
+# San Camilo en Línea - Laboratorios 04 a 07
+**Asignatura:** Construcción de Software (EPIS-UNSA - 2026B)[cite: 43]
 
 ## Integrantes
 - **Grupo 08**: Alejandra Choque (Redactora de ADRs, Diagramadora y Verificadora de IA)
