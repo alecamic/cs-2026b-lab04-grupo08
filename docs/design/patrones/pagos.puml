@@ -1,0 +1,32 @@
+@startuml pagos
+title Pagos: Strategy + Adapter + Decorator + Factory
+
+interface PasarelaPago <<Strategy>> {
+  +cobrar(monto: float, celular: string): ResultadoPago
+}
+
+class YapeAdapter <<Adapter>> implements PasarelaPago {
+  -sdk: YapeSDK
+  +cobrar(monto: float, celular: string): ResultadoPago
+}
+
+class PlinAdapter <<Adapter>> implements PasarelaPago {
+  -client: PlinClient
+  +cobrar(monto: float, celular: string): ResultadoPago
+}
+
+class ConReintentos <<Decorator>> implements PasarelaPago {
+  -interna: PasarelaPago
+  -intentos: int
+  +cobrar(monto: float, celular: string): ResultadoPago
+}
+
+class FabricaPasarelas <<Factory>> {
+  -creadores: dict
+  +registrar(medio: string, creador)
+  +crear(medio: string): PasarelaPago
+}
+
+FabricaPasarelas .> PasarelaPago : crea
+ConReintentos o--> PasarelaPago
+@enduml
