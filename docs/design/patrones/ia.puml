@@ -1,0 +1,30 @@
+@startuml ia
+title Componente de IA Aislado: Strategy + Adapter + Decorator + Chain of Responsibility
+
+interface ProveedorLLM <<Strategy>> {
+  +completar(prompt: string): string
+}
+
+class ClaudeAdapter <<Adapter>> implements ProveedorLLM {
+  -sdk: LLMNormalizadorExterno
+  +completar(prompt: string): string
+}
+
+class ConCacheLLM <<Decorator>> implements ProveedorLLM {
+  -interno: ProveedorLLM
+  -cache: dict
+  +completar(prompt: string): string
+}
+
+abstract class Guardrail <<Chain of Responsibility>> {
+  -siguiente: Guardrail
+  +validar(texto: string): string
+  #{abstract} _aplicar(texto: string): string
+}
+
+class SinPreciosGuardrail extends Guardrail
+class SinAfirmacionesProhibidasGuardrail extends Guardrail
+
+GeneradorDescripciones --> ProveedorLLM
+GeneradorDescripciones --> Guardrail
+@enduml
