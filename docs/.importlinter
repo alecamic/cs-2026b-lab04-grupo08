@@ -1,21 +1,21 @@
 [importlinter]
-root_package = ejemplo.agroconecta
+root_package = ejemplo.puestossancamilo
 
 [importlinter:contract:capas]
 name = FF-01 Capas del monolito modular sin ciclos (ADR-001)
 type = layers
 layers =
-    ejemplo.agroconecta.reportes
-    ejemplo.agroconecta.pedidos
-    ejemplo.agroconecta.catalogo | ejemplo.agroconecta.pagos | ejemplo.agroconecta.notificaciones
-    ejemplo.agroconecta.compartido
+    ejemplo.puestossancamilo.reportes
+    ejemplo.puestossancamilo.pedidos
+    ejemplo.puestossancamilo.catalogo | ejemplo.puestossancamilo.pagos | ejemplo.puestossancamilo.notificaciones
+    ejemplo.puestossancamilo.compartido
 
 [importlinter:contract:puertos]
 name = FF-02 Solo el contenedor de arranque conoce los adaptadores de pago (ADR-005)
 type = forbidden
 source_modules =
-    ejemplo.agroconecta.pedidos
-    ejemplo.agroconecta.reportes
-    ejemplo.agroconecta.catalogo
+    ejemplo.puestossancamilo.pedidos
+    ejemplo.puestossancamilo.reportes
+    ejemplo.puestossancamilo.catalogo
 forbidden_modules =
-    ejemplo.agroconecta.pagos.adaptadores
+    ejemplo.puestossancamilo.pagos.infraestructura.pasarelas
