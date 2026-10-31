@@ -1,0 +1,29 @@
+digraph ArbolUtilidad {
+    rankdir=LR;
+    node [shape=box, style=filled, fillcolor="#F8F9FA", fontname="Arial"];
+
+    Utilidad [label="Utilidad\nSan Camilo en Línea", fillcolor="#17A2B8", fontcolor=white];
+    
+    Rendimiento [label="Rendimiento", fillcolor="#DC3545", fontcolor=white];
+    Disponibilidad [label="Disponibilidad", fillcolor="#DC3545", fontcolor=white];
+    Seguridad [label="Seguridad", fillcolor="#DC3545", fontcolor=white];
+    Modificabilidad [label="Modificabilidad", fillcolor="#DC3545", fontcolor=white];
+
+    Utilidad -> {Rendimiento, Disponibilidad, Seguridad, Modificabilidad};
+
+    // Rendimiento
+    QA01 [label="(H,M) QA-01: 50 000 consultas/hora en hora punta\n -> p95 <= 1.5 s"];
+    Rendimiento -> QA01;
+
+    // Disponibilidad
+    QA02 [label="(H,H) QA-02: Caída de conectividad en puesto\n -> Sincronización offline <= 3 min"];
+    Disponibilidad -> QA02;
+
+    // Seguridad / Aislamiento
+    QA04 [label="(H,M) QA-04: Usuario de Mercado Altiplano consulta datos\n -> 0 accesos a datos de Río Seco"];
+    Seguridad -> QA04;
+
+    // Modificabilidad
+    QA06 [label="(H,M) QA-06: Incorporar nuevo mercado (Río Seco/Altiplano)\n -> Integración <= 1 día sin modificar código base"];
+    Modificabilidad -> QA06;
+}
